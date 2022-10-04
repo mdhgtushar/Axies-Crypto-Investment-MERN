@@ -1,13 +1,42 @@
-const { checkAuth, Register, Login,Logout } = require("../controllers/userController");
 const userRouter = require("express").Router();
-const checkAuthMiddleware = require("../middlewares/checkAuth.js")
-userRouter.route("/").get(checkAuth);
-userRouter.route("/register").post(Register);
-userRouter.route("/login").post(Login);
-userRouter.route("/logout").get(checkAuthMiddleware, Logout);
-userRouter.route("/profile_update");
-userRouter.route("/delete_profile");
+const userController = require("../controllers/userController");
+const DepositController = require("../controllers/DepositController.js");
+const WidthdrowController = require("../controllers/WidthdrowController.js");
+const checkAuthMiddleware = require("../middlewares/checkAuth.js");
+userRouter.route("/auth/").get(userController.checkAuth);
+userRouter.route("/auth/register").post(userController.Register);
+userRouter.route("/auth/login").post(userController.Login);
+userRouter
+  .route("/auth/logout")
+  .get(checkAuthMiddleware, userController.Logout);
+userRouter.route("/auth/profile_update");
+userRouter.route("/auth/delete_profile");
 
-
+///transactions
+userRouter.route("/dashboard").get(checkAuthMiddleware, (req, res, next) => {
+  try {
+    res.json({
+      avilable_balance: 200,
+      total_deposits: 600,
+      total_withdrows: 300,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+//deposit Routes
+userRouter
+  .route("/deposits/add")
+  .post(checkAuthMiddleware, DepositController.add_deposit);
+userRouter
+  .route("/deposits")
+  .get(checkAuthMiddleware, DepositController.get_deposits_by_user);
+//widthdrows Routes
+userRouter
+  .route("/widthdrows")
+  .get(checkAuthMiddleware, WidthdrowController.get_widthdrow_by_user);
+userRouter
+  .route("/widthdrows/add")
+  .post(checkAuthMiddleware, WidthdrowController.add_widthdrow);
 
 module.exports = userRouter;
