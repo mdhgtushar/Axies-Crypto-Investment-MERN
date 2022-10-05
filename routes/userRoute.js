@@ -1,14 +1,14 @@
 const userRouter = require("express").Router();
-const userController = require("../controllers/userController");
+const UserController = require("../controllers/UserController");
 const DepositController = require("../controllers/DepositController.js");
 const WidthdrowController = require("../controllers/WidthdrowController.js");
 const checkAuthMiddleware = require("../middlewares/checkAuth.js");
-userRouter.route("/auth/").get(userController.checkAuth);
-userRouter.route("/auth/register").post(userController.Register);
-userRouter.route("/auth/login").post(userController.Login);
+userRouter.route("/auth/").get(UserController.checkAuth);
+userRouter.route("/auth/register").post(UserController.Register);
+userRouter.route("/auth/login").post(UserController.Login);
 userRouter
   .route("/auth/logout")
-  .get(checkAuthMiddleware, userController.Logout);
+  .get(checkAuthMiddleware, UserController.Logout);
 userRouter.route("/auth/profile_update");
 userRouter.route("/auth/delete_profile");
 
