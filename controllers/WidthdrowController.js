@@ -29,5 +29,12 @@ WidthdrowController.add_widthdrow = async (req, res, next) => {
     next(err);
   }
 };
+WidthdrowController.cancel_widthdrow = async (req, res, next) => {
+  res.send({ success: false });
+};
+
+WidthdrowController.delete_widthdrow = async (req, res, next) => {
+  res.send({ success: false });
+};
 
 module.exports = WidthdrowController;

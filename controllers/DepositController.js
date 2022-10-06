@@ -13,6 +13,14 @@ DepositController.get_deposits_by_user = async (req, res, next) => {
   }
 };
 
+DepositController.cancel_deposit = async (req, res, next) => {
+  res.send({ success: false });
+};
+
+DepositController.delete_deposit = async (req, res, next) => {
+  res.send({ success: false });
+};
+
 DepositController.add_deposit = async (req, res, next) => {
   try {
     const depoSave = new Deposit({
